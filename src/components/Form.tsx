@@ -4,6 +4,14 @@ const INITIAL_STATE = {
   name: '',
   login: '',
   password: '',
+  URL: '',
+};
+
+type FormData = {
+  name: string;
+  login: string;
+  password: string;
+  URL: string;
 };
 
 type FormProps = {
@@ -12,6 +20,7 @@ type FormProps = {
 
 export default function Form({ cancelFunction }: FormProps) {
   const [formData, setFormData] = useState(INITIAL_STATE);
+  const [passwords, setPasswords] = useState<FormData[]>([]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -61,10 +70,23 @@ export default function Form({ cancelFunction }: FormProps) {
     );
   };
 
+  const handleRegisterPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    const { name, login, password, URL } = formData;
+    const newPassword = {
+      name,
+      login,
+      password,
+      URL,
+    };
+    setPasswords([...passwords, newPassword]);
+    setFormData(INITIAL_STATE);
+  };
+
   return (
-    <form action="">
+    <form>
       <label htmlFor="service-name">
-        Nome do serviço
+        Nome do Serviço
         <input
           type="text"
           id="service-name"
@@ -93,13 +115,51 @@ export default function Form({ cancelFunction }: FormProps) {
           required
         />
       </label>
-      <label htmlFor="url">
+      <label htmlFor="URL">
         URL
-        <input type="text" id="url" />
+        <input
+          type="text"
+          id="URL"
+          name="URL"
+          onChange={ handleInputChange }
+        />
+
       </label>
       {renderPasswordValidation()}
-      <button disabled={ !isFormValid() }>Cadastrar</button>
-      <button onClick={ cancelFunction }>Cancelar</button>
+      <button
+        disabled={ !isFormValid() }
+        onClick={ handleRegisterPassword }
+      >
+        Cadastrar
+
+      </button>
+      <button
+        onClick={ cancelFunction }
+      >
+        Cancelar
+
+      </button>
+      {passwords.length > 0 ? (
+        <ul>
+          {passwords.map((password, index) => (
+            <li key={ index }>
+              <a href={ password.URL } target="blank">{password.name}</a>
+              <div>
+                Login:
+                {' '}
+                {password.login}
+              </div>
+              <div>
+                Senha:
+                {' '}
+                {password.password}
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>Nenhuma senha cadastrada</p>
+      )}
     </form>
   );
 }

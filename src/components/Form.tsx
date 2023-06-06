@@ -1,4 +1,8 @@
-export default function Form() {
+type FormProps = {
+  cancelFunction: () => void;
+};
+
+export default function Form({ cancelFunction }: FormProps) {
   return (
     <form action="">
       <label htmlFor="service-name">
@@ -18,7 +22,7 @@ export default function Form() {
         <input type="text" id="url" />
       </label>
       <button>Cadastrar</button>
-      <button>Cancelar</button>
+      <button onClick={ cancelFunction }>Cancelar</button>
     </form>
   );
 }

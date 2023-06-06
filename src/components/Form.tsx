@@ -36,6 +36,31 @@ export default function Form({ cancelFunction }: FormProps) {
     );
   };
 
+  const renderPasswordValidation = () => {
+    const { password } = formData;
+
+    const validPassword = 'valid-password-check';
+    const invalidPassword = 'invalid-password-check';
+
+    return (
+      <ul>
+        <p>A senha deve:</p>
+        <li className={ password.length >= 8 ? validPassword : invalidPassword }>
+          Possuir 8 ou mais caracteres
+        </li>
+        <li className={ password.length <= 16 ? validPassword : invalidPassword }>
+          Possuir até 16 caracteres
+        </li>
+        <li className={ /\d/.test(password) ? validPassword : invalidPassword }>
+          Possuir letras e números
+        </li>
+        <li className={ /[!@#$%^&*]/.test(password) ? validPassword : invalidPassword }>
+          Possuir algum caractere especial
+        </li>
+      </ul>
+    );
+  };
+
   return (
     <form action="">
       <label htmlFor="service-name">
@@ -72,6 +97,7 @@ export default function Form({ cancelFunction }: FormProps) {
         URL
         <input type="text" id="url" />
       </label>
+      {renderPasswordValidation()}
       <button disabled={ !isFormValid() }>Cadastrar</button>
       <button onClick={ cancelFunction }>Cancelar</button>
     </form>

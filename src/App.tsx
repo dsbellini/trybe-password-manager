@@ -6,6 +6,7 @@ import Title from './components/Title';
 function App() {
   const [showForm, setShowForm] = useState(false);
   const [passwords, setPasswords] = useState<FormDataProps[]>([]);
+  const [hidePasswords, setHidePasswords] = useState(false);
 
   const handleRegisterNewPasswordClick = () => {
     setShowForm(true);
@@ -21,6 +22,9 @@ function App() {
   //   !== event.name);
   //   setPasswords(filteredPasswords);
   // };
+  const handleCheckboxChange = () => {
+    setHidePasswords(!hidePasswords);
+  };
 
   return (
     <>
@@ -42,39 +46,50 @@ function App() {
           />)}
         <section>
           {passwords.length > 0 ? (
-            <ul>
-              {passwords.map((password) => (
-                <li key={ password.name }>
-                  <a href={ password.URL } target="blank">{password.name}</a>
-                  <div>
-                    Login:
-                    {' '}
-                    <span>
-                      {password.login}
-                    </span>
-                  </div>
-                  <div>
-                    Senha:
-                    {' '}
-                    <span>
-                      {password.password}
-                    </span>
-                  </div>
-                  <button
-                    data-testid="remove-btn"
-                    onClick={ () => {
-                      const filteredPasswords = passwords
-                        .filter((filteredPassword) => filteredPassword.name
+            <>
+              <ul>
+                {passwords.map((password) => (
+                  <li key={ password.name }>
+                    <a href={ password.URL } target="blank">{password.name}</a>
+                    <div>
+                      Login:
+                      {' '}
+                      <span>
+                        {password.login}
+                      </span>
+                    </div>
+                    <div>
+                      Senha:
+                      {' '}
+                      <span>
+                        {hidePasswords ? '******' : password.password}
+                      </span>
+                    </div>
+                    <button
+                      data-testid="remove-btn"
+                      onClick={ () => {
+                        const filteredPasswords = passwords
+                          .filter((filteredPassword) => filteredPassword.name
                         !== password.name);
-                      setPasswords(filteredPasswords);
-                    } }
-                  >
-                    Apagar
+                        setPasswords(filteredPasswords);
+                      } }
+                    >
+                      Apagar
 
-                  </button>
-                </li>
-              ))}
-            </ul>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+              <div>
+                <label htmlFor="password-hidden">Esconder senhas</label>
+                <input
+                  type="checkbox"
+                  id="password-hidden"
+                  checked={ hidePasswords }
+                  onChange={ handleCheckboxChange }
+                />
+              </div>
+            </>
           ) : (
             <p>Nenhuma senha cadastrada</p>
           )}

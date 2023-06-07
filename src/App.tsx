@@ -43,12 +43,16 @@ function App() {
                   <div>
                     Login:
                     {' '}
-                    {password.login}
+                    <span>
+                      {password.login}
+                    </span>
                   </div>
                   <div>
                     Senha:
                     {' '}
-                    {password.password}
+                    <span>
+                      {password.password}
+                    </span>
                   </div>
                 </li>
               ))}

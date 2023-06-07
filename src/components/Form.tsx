@@ -1,4 +1,6 @@
 import React, { FormEvent, useState } from 'react';
+import eyeClosed from '../images/eye-closed.svg';
+import eyeOpen from '../images/eye-open.svg';
 
 const INITIAL_STATE = {
   name: '',
@@ -21,6 +23,7 @@ type FormProps = {
 
 export default function Form({ cancelClick, registerButton }: FormProps) {
   const [formData, setFormData] = useState(INITIAL_STATE);
+  const [showPasswordButton, setShowPasswordButton] = useState('password');
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -72,8 +75,13 @@ export default function Form({ cancelClick, registerButton }: FormProps) {
 
   const handleRegisterButton = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     registerButton(formData);
+  };
+
+  const handleButtonHidePassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
+    setShowPasswordButton(showPasswordButton === 'password' ? 'text' : 'password');
   };
 
   return (
@@ -101,13 +109,24 @@ export default function Form({ cancelClick, registerButton }: FormProps) {
       <label htmlFor="password">
         Senha
         <input
-          type="password"
+          type={ showPasswordButton }
           id="password"
           name="password"
           onChange={ handleInputChange }
           required
         />
       </label>
+
+      <button
+        data-testid="show-hide-form-password"
+        onClick={ handleButtonHidePassword }
+      >
+        {showPasswordButton === 'text' ? <img
+          src={ eyeClosed }
+          alt="eye closed"
+        /> : <img src={ eyeOpen } alt="eye open" /> }
+      </button>
+
       <label htmlFor="URL">
         URL
         <input

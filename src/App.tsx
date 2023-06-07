@@ -17,11 +17,12 @@ function App() {
     setPasswords([...passwords, formData]);
   };
 
-  // const handleDelete = (event: FormDataProps) => {
-  //   const filteredPasswords = passwords.filter((filteredPassword) => filteredPassword.name
-  //   !== event.name);
-  //   setPasswords(filteredPasswords);
-  // };
+  const handleDelete = (password: string) => {
+    const filteredPasswords = passwords.filter((filteredPassword) => filteredPassword.name
+    !== password);
+    setPasswords(filteredPasswords);
+  };
+
   const handleCheckboxChange = () => {
     setHidePasswords(!hidePasswords);
   };
@@ -67,15 +68,9 @@ function App() {
                     </div>
                     <button
                       data-testid="remove-btn"
-                      onClick={ () => {
-                        const filteredPasswords = passwords
-                          .filter((filteredPassword) => filteredPassword.name
-                        !== password.name);
-                        setPasswords(filteredPasswords);
-                      } }
+                      onClick={ () => handleDelete(password.name) }
                     >
                       Apagar
-
                     </button>
                   </li>
                 ))}

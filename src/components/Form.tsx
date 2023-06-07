@@ -15,10 +15,10 @@ type FormData = {
 };
 
 type FormProps = {
-  cancelFunction: () => void;
+  cancelClick: () => void;
 };
 
-export default function Form({ cancelFunction }: FormProps) {
+export default function Form({ cancelClick }: FormProps) {
   const [formData, setFormData] = useState(INITIAL_STATE);
   const [passwords, setPasswords] = useState<FormData[]>([]);
 
@@ -84,7 +84,7 @@ export default function Form({ cancelFunction }: FormProps) {
   };
 
   return (
-    <form>
+    <form action="">
       <label htmlFor="service-name">
         Nome do Serviço
         <input
@@ -134,7 +134,7 @@ export default function Form({ cancelFunction }: FormProps) {
 
       </button>
       <button
-        onClick={ cancelFunction }
+        onClick={ cancelClick }
       >
         Cancelar
 

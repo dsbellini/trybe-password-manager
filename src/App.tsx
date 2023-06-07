@@ -24,7 +24,7 @@ function App() {
           <button onClick={ handleRegisterNewPasswordClick }>Cadastrar nova senha</button>
         )}
         {
-        showForm && <Form cancelFunction={ handleCancelClick } />
+        showForm && <Form cancelClick={ handleCancelClick } />
       }
       </main>
     </>

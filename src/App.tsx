@@ -1,5 +1,5 @@
 import './App.css';
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
 import Form, { FormDataProps } from './components/Form';
 import Title from './components/Title';
 
@@ -16,9 +16,11 @@ function App() {
     setPasswords([...passwords, formData]);
   };
 
-  const handleDelete = () => {
-
-  };
+  // const handleDelete = (event: FormDataProps) => {
+  //   const filteredPasswords = passwords.filter((filteredPassword) => filteredPassword.name
+  //   !== event.name);
+  //   setPasswords(filteredPasswords);
+  // };
 
   return (
     <>

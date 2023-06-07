@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 
 const INITIAL_STATE = {
   name: '',
@@ -7,7 +7,7 @@ const INITIAL_STATE = {
   URL: '',
 };
 
-type FormData = {
+export type FormDataProps = {
   name: string;
   login: string;
   password: string;
@@ -16,11 +16,11 @@ type FormData = {
 
 type FormProps = {
   cancelClick: () => void;
+  registerButton: (params: FormDataProps) => void;
 };
 
-export default function Form({ cancelClick }: FormProps) {
+export default function Form({ cancelClick, registerButton }: FormProps) {
   const [formData, setFormData] = useState(INITIAL_STATE);
-  const [passwords, setPasswords] = useState<FormData[]>([]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -70,21 +70,14 @@ export default function Form({ cancelClick }: FormProps) {
     );
   };
 
-  const handleRegisterPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleRegisterButton = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const { name, login, password, URL } = formData;
-    const newPassword = {
-      name,
-      login,
-      password,
-      URL,
-    };
-    setPasswords([...passwords, newPassword]);
-    setFormData(INITIAL_STATE);
+
+    registerButton(formData);
   };
 
   return (
-    <form action="">
+    <form onSubmit={ handleRegisterButton }>
       <label htmlFor="service-name">
         Nome do Serviço
         <input
@@ -127,8 +120,8 @@ export default function Form({ cancelClick }: FormProps) {
       </label>
       {renderPasswordValidation()}
       <button
+        type="submit"
         disabled={ !isFormValid() }
-        onClick={ handleRegisterPassword }
       >
         Cadastrar
 
@@ -139,27 +132,6 @@ export default function Form({ cancelClick }: FormProps) {
         Cancelar
 
       </button>
-      {passwords.length > 0 ? (
-        <ul>
-          {passwords.map((password, index) => (
-            <li key={ index }>
-              <a href={ password.URL } target="blank">{password.name}</a>
-              <div>
-                Login:
-                {' '}
-                {password.login}
-              </div>
-              <div>
-                Senha:
-                {' '}
-                {password.password}
-              </div>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>Nenhuma senha cadastrada</p>
-      )}
     </form>
   );
 }

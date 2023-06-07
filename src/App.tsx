@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import Form, { FormDataProps } from './components/Form';
 import Title from './components/Title';
 
@@ -14,6 +14,10 @@ function App() {
   const handleSetPassword = (formData: FormDataProps) => {
     setShowForm(false);
     setPasswords([...passwords, formData]);
+  };
+
+  const handleDelete = () => {
+
   };
 
   return (
@@ -38,7 +42,7 @@ function App() {
           {passwords.length > 0 ? (
             <ul>
               {passwords.map((password) => (
-                <li key={ Date.now() }>
+                <li key={ password.name }>
                   <a href={ password.URL } target="blank">{password.name}</a>
                   <div>
                     Login:
@@ -54,6 +58,18 @@ function App() {
                       {password.password}
                     </span>
                   </div>
+                  <button
+                    data-testid="remove-btn"
+                    onClick={ () => {
+                      const filteredPasswords = passwords
+                        .filter((filteredPassword) => filteredPassword.name
+                        !== password.name);
+                      setPasswords(filteredPasswords);
+                    } }
+                  >
+                    Apagar
+
+                  </button>
                 </li>
               ))}
             </ul>

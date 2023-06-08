@@ -1,4 +1,5 @@
 import React, { FormEvent, useState } from 'react';
+import Swal from 'sweetalert2';
 import eyeClosed from '../images/eye-closed.svg';
 import eyeOpen from '../images/eye-open.svg';
 
@@ -76,6 +77,12 @@ export default function Form({ cancelClick, registerButton }: FormProps) {
   const handleRegisterButton = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     registerButton(formData);
+
+    Swal.fire({
+      title: 'Serviço cadastrado com sucesso',
+      timer: 1500,
+      timerProgressBar: true,
+    });
   };
 
   const handleButtonHidePassword = (event: React.MouseEvent<HTMLButtonElement>) => {

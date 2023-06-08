@@ -1,5 +1,52 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  background-color: #505050;
+  color: rgb(255, 255, 255);
+  background-color: #272A37;
+
+}
+
+h1 {
+  margin-top: 30px;
+  text-align: center;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 700px;
+  margin: auto;
+  padding: 30px;
+  border-radius: 10px;
+  background-color: #1E2029;
+}
+
+section {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+section ul{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:flex-start;
+  margin-top: 2%;
+  max-width: 1000px;
+  /* background-color: #2e3553; */
+  gap: 30px;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:visited {
+  color: inherit;
 }
 
 .valid-password-check {
@@ -12,4 +59,49 @@ body {
 
 ul {
   list-style: none;
+}
+
+p {
+  margin-top: 50px;
+}
+
+.input {
+  background-color: #3B3F50;
+}
+
+.btn-register-cancel {
+  display: flex;
+  justify-content:end;
+  gap: 50px;
+};
+
+.password-verification-container {
+  display: flex;
+  background-color:#94a0d3;
+}
+
+#ul-render-password {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  text-align: center;
+}
+
+.teste {
+  display: flex;
+  /* background-color: #2e3553; */
+  justify-content: space-evenly;
+}
+
+.hidden-password-button {
+  margin-top: 20px;
+  text-align: center;
+}
+
+[ data-testid="show-hide-form-password" ] {
+  display: flex;
+  margin-top: 30px;
+  justify-content: flex-end;
+  max-width: 50px;
+  max-height: 50px;
 }

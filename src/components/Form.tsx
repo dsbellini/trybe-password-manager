@@ -1,8 +1,12 @@
 import React, { FormEvent, useState } from 'react';
 import Swal from 'sweetalert2';
 import Button from 'react-bootstrap/Button';
-import eyeClosed from '../images/eye-closed.svg';
+import { FormLabel } from 'react-bootstrap';
+import Col from 'react-bootstrap/Col';
+import Formboot from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
 import eyeOpen from '../images/eye-open.svg';
+import eyeClosed from '../images/eye-closed.svg';
 
 const INITIAL_STATE = {
   name: '',
@@ -57,19 +61,19 @@ export default function Form({ cancelClick, registerButton }: FormProps) {
     const invalidPassword = 'invalid-password-check';
 
     return (
-      <ul>
+      <ul id="ul-render-password">
         <p>A senha deve:</p>
         <li className={ password.length >= 8 ? validPassword : invalidPassword }>
           Possuir 8 ou mais caracteres
-        </li>
-        <li className={ password.length <= 16 ? validPassword : invalidPassword }>
-          Possuir até 16 caracteres
         </li>
         <li className={ /\d/.test(password) ? validPassword : invalidPassword }>
           Possuir letras e números
         </li>
         <li className={ /[!@#$%^&*]/.test(password) ? validPassword : invalidPassword }>
           Possuir algum caractere especial
+        </li>
+        <li className={ password.length <= 16 ? validPassword : invalidPassword }>
+          Possuir até 16 caracteres
         </li>
       </ul>
     );
@@ -93,76 +97,106 @@ export default function Form({ cancelClick, registerButton }: FormProps) {
   };
 
   return (
-    <form onSubmit={ handleRegisterButton }>
-      <label htmlFor="service-name">
-        Nome do Serviço
-        <input
-          type="text"
-          id="service-name"
-          name="name"
-          onChange={ handleInputChange }
-          required
-        />
-      </label>
-      <label htmlFor="login">
-        Login
-        <input
-          type="text"
-          id="login"
-          name="login"
-          onChange={ handleInputChange }
-          required
-        />
-      </label>
-      <label htmlFor="password">
-        Senha
-        <input
-          type={ showPasswordButton }
-          id="password"
-          name="password"
-          onChange={ handleInputChange }
-          required
-        />
-      </label>
+    <Formboot onSubmit={ handleRegisterButton }>
+      <Row className="mb-3">
+        <Formboot.Group as={ Col } controlId="formGridService">
+          <FormLabel htmlFor="service-name">
+            Nome do Serviço
 
-      <button
-        data-testid="show-hide-form-password"
-        onClick={ handleButtonHidePassword }
-      >
-        {showPasswordButton === 'text' ? <img
-          src={ eyeClosed }
-          alt="eye closed"
-        /> : <img src={ eyeOpen } alt="eye open" /> }
-      </button>
+          </FormLabel>
+          {' '}
+          <Formboot.Control
+            className="input"
+            type="text"
+            id="service-name"
+            name="name"
+            onChange={ handleInputChange }
+            required
+            placeholder="Exemplo: Google, Netflix, Facebook"
+          />
+        </Formboot.Group>
 
-      <label htmlFor="URL">
-        URL
-        <input
-          type="text"
-          id="URL"
-          name="URL"
-          onChange={ handleInputChange }
-        />
+        <Formboot.Group as={ Col } controlId="formGridLogin">
+          <FormLabel htmlFor="login">
+            Login
 
-      </label>
-      {renderPasswordValidation()}
-      <Button
-        variant="primary"
-        size="sm"
-        type="submit"
-        disabled={ !isFormValid() }
-      >
-        Cadastrar
+          </FormLabel>
+          {' '}
+          <Formboot.Control
+            className="input"
+            type="text"
+            id="login"
+            name="login"
+            onChange={ handleInputChange }
+            required
+          />
+        </Formboot.Group>
+      </Row>
 
-      </Button>
-      <Button
-        variant="secondary"
-        size="sm"
-        onClick={ cancelClick }
-      >
-        Cancelar
+      <Row className="mb-3">
+        <Formboot.Group as={ Col } controlId="formGridPassword">
+          <FormLabel htmlFor="password">
+            Senha
+          </FormLabel>
+          {' '}
+          <Formboot.Control
+            className="input"
+            type={ showPasswordButton }
+            id="password"
+            name="password"
+            onChange={ handleInputChange }
+            required
+          />
+        </Formboot.Group>
 
-      </Button>
-    </form>
+        <Button
+          variant="outline-dark"
+          data-testid="show-hide-form-password"
+          onClick={ handleButtonHidePassword }
+        >
+          {showPasswordButton === 'text'
+            ? <img src={ eyeClosed } alt="eyeclosed" />
+            : <img src={ eyeOpen } alt="eyeopen" /> }
+        </Button>
+      </Row>
+
+      <Row className="mb-3">
+        <Formboot.Group as={ Col } controlId="formGridURL">
+          <FormLabel htmlFor="URL">
+            URL
+          </FormLabel>
+          {' '}
+          <Formboot.Control
+            className="input"
+            type="text"
+            id="URL"
+            name="URL"
+            onChange={ handleInputChange }
+          />
+        </Formboot.Group>
+      </Row>
+      <span className="renderPasswordSpan">
+        {renderPasswordValidation()}
+      </span>
+      <div className="btn-register-cancel">
+        <Button
+          variant="primary"
+          size="sm"
+          type="submit"
+          disabled={ !isFormValid() }
+        >
+          Cadastrar
+
+        </Button>
+        <Button
+          variant="secondary"
+          size="sm"
+          onClick={ cancelClick }
+        >
+          Cancelar
+
+        </Button>
+      </div>
+    </Formboot>
   );
 }

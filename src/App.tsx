@@ -1,10 +1,12 @@
 /* eslint-disable react/jsx-max-depth */
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import Formboot from 'react-bootstrap/Form';
 import './App.css';
 import { useState } from 'react';
 import Form, { FormDataProps } from './components/Form';
-import Title from './components/Title';
+import linkImage from './images/link-img.svg';
+import deleteImage from './images/trash-img.svg';
 
 function App() {
   const [showForm, setShowForm] = useState(false);
@@ -33,7 +35,7 @@ function App() {
   return (
     <>
       <header>
-        <Title />
+        <h1>Gerenciador de Senhas</h1>
       </header>
       <main>
         {!showForm ? (
@@ -45,71 +47,74 @@ function App() {
 
           </Button>
         )
-          : (<Form
+          : (
+            <Form
               cancelClick={ () => setShowForm(false) }
               registerButton={ handleSetPassword }
-          />)}
-        <section>
-          {passwords.length > 0 ? (
-            <>
-              <ul>
-                {passwords.map((password) => (
-                  <li key={ password.name }>
-                    <Card style={ { width: '18rem' } }>
-                      <Card.Body>
-                        <Card.Title>
-                          <a
-                            href={ password.URL }
-                            target="blank"
-                          >
-                            {password.name}
-
-                          </a>
-                        </Card.Title>
-                        <Card.Text>
-                          <div>
-                            Login:
-                            {' '}
-                            <span>
-                              {password.login}
-                            </span>
-                          </div>
-                          Senha:
-                          {' '}
-                          <span>
-                            {hidePasswords ? '******' : password.password}
-                          </span>
-                        </Card.Text>
-                      </Card.Body>
-                      <Button
-                        variant="danger"
-                        data-testid="remove-btn"
-                        onClick={ () => handleDelete(password.name) }
-                      >
-                        Apagar
-                      </Button>
-                    </Card>
-
-                  </li>
-                ))}
-              </ul>
-              <div>
-                <label htmlFor="password-hidden">Esconder senhas</label>
-                <input
-                  type="checkbox"
-                  id="password-hidden"
-                  checked={ hidePasswords }
-                  onChange={ handleCheckboxChange }
-                />
-              </div>
-            </>
-          ) : (
-            <p>Nenhuma senha cadastrada</p>
+            />
           )}
-
-        </section>
       </main>
+      <section>
+        {passwords.length > 0 ? (
+          <ul>
+            {passwords.map((password) => (
+              <li key={ password.name }>
+                <Card
+                  style={ { width: '18rem' } }
+                  bg="dark"
+                  border="success"
+                >
+                  <Card.Body>
+                    <Card.Title className="teste">
+                      <a
+                        href={ password.URL }
+                        target="blank"
+                      >
+                        {password.name}
+                        <img src={ linkImage } alt="linkimg" />
 
+                      </a>
+                    </Card.Title>
+                    <Card.Text>
+                      <div>
+                        Login:
+                        {' '}
+                        <span>
+                          {password.login}
+                        </span>
+                      </div>
+                      Senha:
+                      {' '}
+                      <span>
+                        {hidePasswords ? '******' : password.password}
+                      </span>
+                    </Card.Text>
+                  </Card.Body>
+                  <Button
+                    variant="outline-dark"
+                    data-testid="remove-btn"
+                    onClick={ () => handleDelete(password.name) }
+                  >
+                    <img src={ deleteImage } alt="deleteImage" />
+                  </Button>
+                </Card>
+
+                <div className="hidden-password-button">
+                  <label htmlFor="password-hidden">Esconder senhas</label>
+                  <Formboot.Check
+                    type="switch"
+                    id="password-hidden"
+                    checked={ hidePasswords }
+                    onChange={ handleCheckboxChange }
+                  />
+                </div>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>Nenhuma senha cadastrada</p>
+        )}
+      </section>
     </>
   );
 }

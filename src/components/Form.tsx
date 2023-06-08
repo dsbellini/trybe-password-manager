@@ -1,5 +1,6 @@
 import React, { FormEvent, useState } from 'react';
 import Swal from 'sweetalert2';
+import Button from 'react-bootstrap/Button';
 import eyeClosed from '../images/eye-closed.svg';
 import eyeOpen from '../images/eye-open.svg';
 
@@ -145,19 +146,23 @@ export default function Form({ cancelClick, registerButton }: FormProps) {
 
       </label>
       {renderPasswordValidation()}
-      <button
+      <Button
+        variant="primary"
+        size="sm"
         type="submit"
         disabled={ !isFormValid() }
       >
         Cadastrar
 
-      </button>
-      <button
+      </Button>
+      <Button
+        variant="secondary"
+        size="sm"
         onClick={ cancelClick }
       >
         Cancelar
 
-      </button>
+      </Button>
     </form>
   );
 }

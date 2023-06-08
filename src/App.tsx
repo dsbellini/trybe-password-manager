@@ -1,3 +1,6 @@
+/* eslint-disable react/jsx-max-depth */
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 import './App.css';
 import { useState } from 'react';
 import Form, { FormDataProps } from './components/Form';
@@ -34,12 +37,13 @@ function App() {
       </header>
       <main>
         {!showForm ? (
-          <button
+          <Button
+            variant="dark"
             onClick={ handleRegisterNewPasswordClick }
           >
             Cadastrar nova senha
 
-          </button>
+          </Button>
         )
           : (<Form
               cancelClick={ () => setShowForm(false) }
@@ -51,27 +55,41 @@ function App() {
               <ul>
                 {passwords.map((password) => (
                   <li key={ password.name }>
-                    <a href={ password.URL } target="blank">{password.name}</a>
-                    <div>
-                      Login:
-                      {' '}
-                      <span>
-                        {password.login}
-                      </span>
-                    </div>
-                    <div>
-                      Senha:
-                      {' '}
-                      <span>
-                        {hidePasswords ? '******' : password.password}
-                      </span>
-                    </div>
-                    <button
-                      data-testid="remove-btn"
-                      onClick={ () => handleDelete(password.name) }
-                    >
-                      Apagar
-                    </button>
+                    <Card style={ { width: '18rem' } }>
+                      <Card.Body>
+                        <Card.Title>
+                          <a
+                            href={ password.URL }
+                            target="blank"
+                          >
+                            {password.name}
+
+                          </a>
+                        </Card.Title>
+                        <Card.Text>
+                          <div>
+                            Login:
+                            {' '}
+                            <span>
+                              {password.login}
+                            </span>
+                          </div>
+                          Senha:
+                          {' '}
+                          <span>
+                            {hidePasswords ? '******' : password.password}
+                          </span>
+                        </Card.Text>
+                      </Card.Body>
+                      <Button
+                        variant="danger"
+                        data-testid="remove-btn"
+                        onClick={ () => handleDelete(password.name) }
+                      >
+                        Apagar
+                      </Button>
+                    </Card>
+
                   </li>
                 ))}
               </ul>
@@ -88,6 +106,7 @@ function App() {
           ) : (
             <p>Nenhuma senha cadastrada</p>
           )}
+
         </section>
       </main>
 

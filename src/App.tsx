@@ -57,63 +57,66 @@ function App() {
       </main>
       <section>
         {passwords.length > 0 ? (
-          <ul>
-            {passwords.map((password) => (
-              <li key={ password.name }>
-                <Card
-                  style={ { width: '18rem' } }
-                  bg="dark"
-                  border="success"
-                >
-                  <Card.Body>
-                    <Card.Title className="card-title">
-                      <a
-                        href={ password.URL }
-                        target="blank"
-                      >
-                        {password.name}
-
-                      </a>
-                      <img src={ linkImage } alt="linkimg" id="link" />
-                    </Card.Title>
-                    <Card.Text>
-                      <div>
-                        Login:
-                        {' '}
-                        <span>
-                          {password.login}
-                        </span>
-                      </div>
-                      <div>
-                        Senha:
-                        {' '}
-                        <span>
-                          {hidePasswords ? '******' : password.password}
-                        </span>
-                      </div>
-                    </Card.Text>
-                  </Card.Body>
-                  <Button
-                    variant="outline-dark"
-                    data-testid="remove-btn"
-                    onClick={ () => handleDelete(password.name) }
+          <>
+            <ul>
+              {passwords.map((password) => (
+                <li key={ password.name }>
+                  <Card
+                    style={ { width: '18rem' } }
+                    bg="dark"
+                    border="success"
                   >
-                    <img src={ deleteImage } alt="deleteImage" />
-                  </Button>
-                </Card>
+                    <Card.Body>
+                      <Card.Title className="card-title">
+                        <a
+                          href={ password.URL }
+                          target="blank"
+                        >
+                          {password.name}
 
-                <div className="hidden-password-button">
-                  <label htmlFor="password-hidden">Esconder senhas</label>
-                  <Formboot.Check
-                    type="switch"
-                    id="password-hidden"
-                    checked={ hidePasswords }
-                    onChange={ handleCheckboxChange }
-                  />
-                </div>
-              </li>
-            ))}
-          </ul>
+                        </a>
+                        <img src={ linkImage } alt="linkimg" id="link" />
+                      </Card.Title>
+                      <Card.Text>
+                        <div>
+                          Login:
+                          {' '}
+                          <span>
+                            {password.login}
+                          </span>
+                        </div>
+                        <div>
+                          Senha:
+                          {' '}
+                          <span>
+                            {hidePasswords ? '******' : password.password}
+                          </span>
+                        </div>
+                      </Card.Text>
+                    </Card.Body>
+                    <Button
+                      variant="outline-dark"
+                      data-testid="remove-btn"
+                      onClick={ () => handleDelete(password.name) }
+                    >
+                      <img src={ deleteImage } alt="deleteImage" />
+                    </Button>
+                  </Card>
+
+                </li>
+              ))}
+            </ul>
+            <div className="hidden-password-button">
+              <label htmlFor="password-hidden">Esconder senhas</label>
+              <Formboot.Check
+                type="switch"
+                id="password-hidden"
+                checked={ hidePasswords }
+                onChange={ handleCheckboxChange }
+              />
+            </div>
+
+          </>
         ) : (
           <p>Nenhuma senha cadastrada</p>
         )}

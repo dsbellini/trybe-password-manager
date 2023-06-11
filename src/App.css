@@ -10,9 +10,17 @@ body {
 
 }
 
-h1 {
+header {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   margin-top: 30px;
-  text-align: center;
+  margin-bottom: 30px;
+}
+
+h3 {
+  font-family: 'Abel', sans-serif;
 }
 
 main {
@@ -87,10 +95,14 @@ p {
   text-align: center;
 }
 
-.teste {
+.card-title {
   display: flex;
   /* background-color: #2e3553; */
-  justify-content: space-evenly;
+  justify-content: space-around;
+}
+
+.card-title:hover {
+color: #94a0d3;
 }
 
 .hidden-password-button {
@@ -104,4 +116,13 @@ p {
   justify-content: flex-end;
   max-width: 50px;
   max-height: 50px;
+}
+
+.swal2-popup {
+  color: white;
+  background-color: #3B3F50;
+}
+
+.swal2-confirm.swal2-styled {
+  background-color:#1E2029;
 }

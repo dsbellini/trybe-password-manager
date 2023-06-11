@@ -36,6 +36,7 @@ function App() {
     <>
       <header>
         <h1>Gerenciador de Senhas</h1>
+        <h3>Cofre Digital ® </h3>
       </header>
       <main>
         {!showForm ? (
@@ -65,15 +66,15 @@ function App() {
                   border="success"
                 >
                   <Card.Body>
-                    <Card.Title className="teste">
+                    <Card.Title className="card-title">
                       <a
                         href={ password.URL }
                         target="blank"
                       >
                         {password.name}
-                        <img src={ linkImage } alt="linkimg" />
 
                       </a>
+                      <img src={ linkImage } alt="linkimg" id="link" />
                     </Card.Title>
                     <Card.Text>
                       <div>
@@ -83,11 +84,13 @@ function App() {
                           {password.login}
                         </span>
                       </div>
-                      Senha:
-                      {' '}
-                      <span>
-                        {hidePasswords ? '******' : password.password}
-                      </span>
+                      <div>
+                        Senha:
+                        {' '}
+                        <span>
+                          {hidePasswords ? '******' : password.password}
+                        </span>
+                      </div>
                     </Card.Text>
                   </Card.Body>
                   <Button
